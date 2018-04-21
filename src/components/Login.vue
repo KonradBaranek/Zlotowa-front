@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import router from '../router'
 export default {
    name: 'Login',
    data(){
@@ -20,16 +21,17 @@ export default {
    },
    methods:{
        
-            authenticate() {
-                window.authenticateCallback = function(token) {
-                 this.accessToken = token;
-                };
-                window.open('http://100.64.12.65:3000/api/auth/google/start');
-                console.log(this.accessToken);
-            },
-            greet(){
-                alert('hello');
-            }
+        authenticate() {
+            router.push('/')
+            // window.authenticateCallback = function(token) {
+            //     this.accessToken = token;
+            // };
+            // window.open('http://100.64.12.65:3000/api/auth/google/start');
+            // console.log(this.accessToken);
+        },
+        greet(){
+            alert('hello');
+        }
        
    }
 }
