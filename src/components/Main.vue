@@ -16,46 +16,41 @@
        <div class="description">
            <h2>Twoje wydarzenia:</h2>
        </div>
-       <div class="list-item" v-for="event in events" :key="event.id">
+       <div class="list-item" v-for="event in events" :key="event._id">
            <h2>{{event.name}}</h2>
+           <button><i class="material-icons">edit</i></button>
+           
        </div>
     </div>
 </template>
 
 <script>
+import {getEvents} from '../api.js'
 export default {
    name: 'Login',
    data(){
        return {
-            user: {name: 'Kermit Kowalski',
-                debt: 100
-            },
-            events: [
-                        {  
-                            id: 0,
-                            name:'impra u przemka', 
-                            participants: [],
-                            expenses:[],
-                            cost: 123
-                        },
-                         {  
-                            id: 1,
-                            name:'impra u kondzia', 
-                            participants: [],
-                            expenses:[],
-                            cost: 123
-                        },
-                        {   
-                            id: 2,
-                            name:'impra u konrada', 
-                            participants: [],
-                            expenses:[],
-                            cost: 123
-                        }
-                    ]
+            user: {},
+            events: []
        }
-   }
+    },
+    methods:{
+        getUser(){
+            // zrób zapytanie o usera i jego eventy
+
+            getEvents().then(events=>{
+                this.events = events
+            })
+            this.user = {name: 'Kermit Kowalski',
+                debt: 100
+            }
+        }
+    },
+    mounted(){
+        this.getUser()
+    }
 }
+
 </script>
 
 <style scoped>
@@ -64,8 +59,9 @@ export default {
         --img-size: 80px;
         --img-size-small: 40px;
         --theme-color: #0066ff;
-        --theme-color-gray: #ACACAC;
-        --theme-color-dark-gray: #707070;
+        --theme-color-lighter: #0091ff;
+        --theme-color-gray: rgb(220, 220, 220);
+        --theme-color-dark-gray: rgb(199, 199, 199);
 
         display: grid;
         grid-template-columns: auto auto auto;
@@ -103,6 +99,27 @@ export default {
         background: var(--theme-color-dark-gray);
         color: white;
         text-transform: uppercase;
+    }
+
+    .list-item{
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+    }
+
+    .list-item h2{
+        grid-column: 1/2;
+    }
+
+    .list-item button{
+        grid-column: 4/5;
+        border: 2px solid var(--theme-color-lighter);
+        border-radius: 50%;
+        background: var(--theme-color-lighter);
+        width: var(--img-size);
+        height:var(--img-size);
+    }
+    .material-icons{
+       font-size: 5em;
     }
 
 
